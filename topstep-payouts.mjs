@@ -33,7 +33,7 @@ for (let result of results) {
     if (!match) continue
 
     let name = match.groups.name.toLowerCase()
-    let date = match.groups.date
+    let date = new Date(match.groups.date).getTime()
     let amount = Number(match.groups.amount.replace(',', ''))
 
     console.info(`${name},${date},${amount}`)
