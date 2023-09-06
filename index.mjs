@@ -12,7 +12,6 @@ let before
 while (true) {
     let fetch_url = before ? `${url}&before=${before}` : url
     try {
-        console.info('fetch', before)
         var response = await fetch(fetch_url, {headers: {'authorization': auth, 'referer': referer,}})
         var json = await response.json()
     } catch (error) {
@@ -29,17 +28,13 @@ while (true) {
     }
 }
 
-let results_clean = []
-
 for (let result of results) {
     let match = result.content.match(/(by|for) (?<name>.+?), on (?<date>.+?) for \$(?<amount>.+?)\./)
     if (!match) continue
 
     let name = match.groups.name.toLowerCase()
-    let date = new Date(match.groups.date)
+    let date = match.groups.date
     let amount = Number(match.groups.amount.replace(',', ''))
 
-    results_clean.push({name, date, amount})
+    console.info(`${name},${date},${amount}`)
 }
-
-console.log(results_clean)
