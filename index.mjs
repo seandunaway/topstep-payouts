@@ -32,7 +32,7 @@ while (true) {
 let results_clean = []
 
 for (let result of results) {
-    let match = result.content.match(/for (?<name>.+?), on (?<date>.+?) for \$(?<amount>.+?)\./)
+    let match = result.content.match(/(by|for) (?<name>.+?), on (?<date>.+?) for \$(?<amount>.+?)\./)
     if (!match) continue
 
     let name = match.groups.name.toLowerCase()
