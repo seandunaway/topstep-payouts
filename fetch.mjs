@@ -58,6 +58,8 @@ for (let fetch_result of fetch_results) {
     let date = new Date(match.groups.date).getTime()
     let amount = Number(match.groups.amount.replace(',', ''))
 
+    if (!date) date = new Date(fetch_result.timestamp).getTime()
+
     data.push({name, date, amount})
 }
 console.info(`total ${data.length}`)
