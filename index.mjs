@@ -2,7 +2,7 @@
 
 import {readFile} from 'node:fs/promises'
 
-let file = await readFile('./topstep-payouts.json', {encoding: 'utf8'})
+let file = await readFile('./data.json', {encoding: 'utf8'})
 let data = JSON.parse(file)
 let output = {}
 

@@ -45,7 +45,7 @@ console.info(`after ${fetch_before}`)
 
 let data = []
 try {
-    let file = await readFile('./topstep-payouts.json', {encoding: 'utf8'})
+    let file = await readFile('./data.json', {encoding: 'utf8'})
     data = JSON.parse(file)
 } catch (error) {}
 console.info(`data ${data.length}`)
@@ -65,4 +65,4 @@ for (let fetch_result of fetch_results) {
 console.info(`total ${data.length}`)
 
 let data_text = JSON.stringify(data, undefined, 2)
-await writeFile('./topstep-payouts.json', data_text)
+await writeFile('./data.json', data_text)
