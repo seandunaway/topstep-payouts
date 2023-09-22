@@ -12,15 +12,14 @@ let referer = 'https://discord.com/channels/806986940024619039/10117311429756968
 let fetch_before
 try {
     fetch_before = await readFile('./before', {encoding: 'utf8'})
-    console.info(`before ${fetch_before}`)
 } catch (error) {}
+console.info(`before ${fetch_before}`)
 
 let fetch_results = []
 while (true) {
     let fetch_url = fetch_before ? `${url}&before=${fetch_before}` : url
     let fetch_json
     try {
-        console.info(`fetch ${fetch_url}`)
         let fetch_response = await fetch(fetch_url, {headers: {'authorization': auth, 'referer': referer,}})
         fetch_json = await fetch_response.json()
     } catch (error) {
@@ -28,6 +27,7 @@ while (true) {
         await new Promise(function (resolve) { setTimeout(resolve, 10000) })
         continue
     }
+    console.info(`fetch ${fetch_url}`)
 
     if (!fetch_json.length) break
 
@@ -36,11 +36,12 @@ while (true) {
         fetch_before = element.id
     }
 }
+console.info(`fetched ${fetch_results.length}`)
+
 try {
     writeFile('./before', fetch_before)
-    console.info(`before ${fetch_before}`)
 } catch (error) {}
-console.info(`fetched ${fetch_results.length}`)
+console.info(`after ${fetch_before}`)
 
 let data = []
 try {
@@ -61,4 +62,5 @@ for (let fetch_result of fetch_results) {
 }
 console.info(`total ${data.length}`)
 
-await writeFile('./topstep-payouts.json', JSON.stringify(data, undefined, 2))
+let data_text = JSON.stringify(data, undefined, 2)
+await writeFile('./topstep-payouts.json', data_text)
