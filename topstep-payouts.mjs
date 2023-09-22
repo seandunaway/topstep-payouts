@@ -34,14 +34,15 @@ for (let record of data) {
     payout_per_month[month_key].count++
     payout_per_month[month_key].amount += record.amount
 
-    if (names[record.name] === undefined) names[record.name] = 0
-    names[record.name] += record.amount
+    if (names[record.name] === undefined) names[record.name] = {count: 0, amount: 0}
+    names[record.name].count++
+    names[record.name].amount += record.amount
 
     total_paid_out += record.amount
 }
 
 let names_entries = Object.entries(names)
-let names_sort = names_entries.sort(function ([, a], [, b]) {return b - a})
+let names_sort = names_entries.sort(function ([, {amount: a}], [, {amount: b}]) {return b - a})
 
 output.names = names_entries.length
 output.payouts = data.length
@@ -56,4 +57,4 @@ output.payout_per_month = payout_per_month
 output.names_highest_payouts = names_sort.slice(0, 100)
 output.total_paid_out = total_paid_out
 
-console.info(output)
+console.dir(output, {depth: 3})
