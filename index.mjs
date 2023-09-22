@@ -38,7 +38,7 @@ for (let record of data) {
 let names_entries = Object.entries(names)
 let names_sort = names_entries.sort(function ([, {amount: a}], [, {amount: b}]) {return b - a})
 
-output.names = names_entries.length
+output.names = names_sort.length
 output.payouts = data.length
 output.date_first = new Date(date_first).toLocaleDateString()
 output.date_last = new Date(date_last).toLocaleDateString()
@@ -46,7 +46,7 @@ output.date_days = Math.round((date_last - date_first) / (24 * 3600 * 1000))
 output.payout_biggest = payout_biggest
 output.payout_smallest = payout_smallest
 output.payout_average = Math.round(total_paid_out / data.length)
-output.payout_average_per_name = Math.round(output.payout_average / names_entries.length)
+output.payout_average_per_name = Math.round(output.payout_average / names_sort.length)
 output.payout_per_month = payout_per_month
 output.names_highest_payouts = names_sort.slice(0, 100)
 output.total_paid_out = total_paid_out
