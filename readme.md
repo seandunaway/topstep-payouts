@@ -1,26 +1,30 @@
 ```js
 {
-  count: '2,227',
-  first: '9/29/2022',
-  last: '9/19/2023',
-  biggest: '21,500',
-  smallest: '7',
-  months: {
-    '2023-09': 379,
-    '2023-08': 786,
-    '2023-07': 212,
-    '2023-06': 117,
-    '2023-05': 193,
-    '2023-04': 103,
-    '2023-03': 69,
-    '2023-02': 24,
-    '2023-01': 73,
-    '2022-12': 65,
-    '2022-11': 113,
-    '2022-10': 88,
-    '2022-09': 5
+  names: 867,
+  payouts: 2227,
+  date_first: '9/29/2022',
+  date_last: '9/19/2023',
+  date_days: 356,
+  payout_biggest: 21500,
+  payout_smallest: 7,
+  payout_average: 2361,
+  payout_average_per_name: 3,
+  payout_per_month: {
+    '2023-09': { count: 379, amount: 752237 },
+    '2023-08': { count: 786, amount: 1736205 },
+    '2023-07': { count: 212, amount: 528255 },
+    '2023-06': { count: 117, amount: 292951 },
+    '2023-05': { count: 193, amount: 542957 },
+    '2023-04': { count: 103, amount: 317192 },
+    '2023-03': { count: 69, amount: 168162 },
+    '2023-02': { count: 24, amount: 72760 },
+    '2023-01': { count: 73, amount: 181071 },
+    '2022-12': { count: 65, amount: 137887 },
+    '2022-11': { count: 113, amount: 298758 },
+    '2022-10': { count: 88, amount: 217858 },
+    '2022-09': { count: 5, amount: 12632 }
   },
-  names_highest: [
+  names_highest_payouts: [
     [ 'brian', 102203 ],
     [ 'ibrahim', 87349 ],
     [ 'brandon', 79805 ],
@@ -121,6 +125,7 @@
     [ 'juraj', 13965 ],
     [ 'ming', 13862 ],
     [ 'hoang', 13600 ]
-  ]
+  ],
+  total_paid_out: 5258925
 }
 ```
