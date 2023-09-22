@@ -15,21 +15,15 @@ let names = {}
 let total_paid_out = 0
 
 for (let record of data) {
-    if (record.date < date_first)
-        date_first = record.date
-
-    if (record.date > date_last)
-        date_last = record.date
-
-    if (record.amount > payout_biggest)
-        payout_biggest = record.amount
-
-    if (record.amount < payout_smallest)
-        payout_smallest = record.amount
+    if (record.date < date_first) date_first = record.date
+    if (record.date > date_last) date_last = record.date
+    if (record.amount > payout_biggest) payout_biggest = record.amount
+    if (record.amount < payout_smallest) payout_smallest = record.amount
 
     let year = new Date(record.date).getUTCFullYear()
     let month = new Date(record.date).getUTCMonth() + 1
     let month_key = `${year}-${month.toString().padStart(2, '0')}`
+
     if (payout_per_month[month_key] === undefined) payout_per_month[month_key] = {count: 0, amount: 0}
     payout_per_month[month_key].count++
     payout_per_month[month_key].amount += record.amount
