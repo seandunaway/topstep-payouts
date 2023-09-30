@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import {readFile, writeFile} from 'node:fs/promises'
+import {writeFile} from 'node:fs/promises'
 import {env} from 'node:process'
 
 let auth = env.auth
@@ -10,11 +10,6 @@ let url = 'https://discord.com/api/v9/channels/1011731142975696896/messages?limi
 let referer = 'https://discord.com/channels/806986940024619039/1011731142975696896'
 
 let fetch_before
-try {
-    fetch_before = await readFile('./before', {encoding: 'utf8'})
-} catch (error) {}
-console.info(`before ${fetch_before}`)
-
 let fetch_results = []
 while (true) {
     let fetch_url = fetch_before ? `${url}&before=${fetch_before}` : url
@@ -36,20 +31,9 @@ while (true) {
         fetch_before = element.id
     }
 }
-console.info(`fetched ${fetch_results.length}`)
-
-try {
-    writeFile('./before', fetch_before)
-} catch (error) {}
-console.info(`after ${fetch_before}`)
+console.info(`fetch ${fetch_results.length}`)
 
 let data = []
-try {
-    let file = await readFile('./data.json', {encoding: 'utf8'})
-    data = JSON.parse(file)
-} catch (error) {}
-console.info(`data ${data.length}`)
-
 for (let fetch_result of fetch_results) {
     let matches = fetch_result.content.matchAll(/((?:for|by) (?<name>[^,$]+)|for \$(?<amount>(?:\d|,)+)|on (?<date>(?:\d|\/)+))/g)
 
@@ -67,7 +51,7 @@ for (let fetch_result of fetch_results) {
 
     data.push({name, date, amount})
 }
-console.info(`total ${data.length}`)
+console.info(`data ${data.length}`)
 
 let data_text = JSON.stringify(data, undefined, 2)
 await writeFile('./data.json', data_text)
