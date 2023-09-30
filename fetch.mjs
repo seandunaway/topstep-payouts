@@ -51,13 +51,18 @@ try {
 console.info(`data ${data.length}`)
 
 for (let fetch_result of fetch_results) {
-    let match = fetch_result.content.match(/(by|for) (?<name>.+?), on (?<date>.+?) for \$(?<amount>.+?)\./)
-    if (!match) continue
+    let matches = fetch_result.content.matchAll(/((?:for|by) (?<name>[^,$]+)|for \$(?<amount>(?:\d|,)+)|on (?<date>(?:\d|\/)+))/g)
 
-    let name = match.groups.name.toLowerCase()
-    let date = new Date(match.groups.date).getTime()
-    let amount = Number(match.groups.amount.replace(',', ''))
+    let name
+    let date
+    let amount
+    for (let match of matches) {
+        if (match.groups.name) name = match.groups.name.toLowerCase()
+        if (match.groups.date) date = new Date(match.groups.date).getTime()
+        if (match.groups.amount) amount = Number(match.groups.amount.replace(',', ''))
+    }
 
+    if (!name || !amount) continue
     if (!date) date = new Date(fetch_result.timestamp).getTime()
 
     data.push({name, date, amount})
