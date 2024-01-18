@@ -48,7 +48,7 @@ output.payout_smallest = payout_smallest
 output.payout_average = Math.round(total_paid_out / data.length)
 output.payout_average_per_name = Math.round(output.payout_average / names_sort.length)
 output.payout_per_month = payout_per_month
-output.names_highest_payouts = names_sort.slice(0, 100)
+output.names_highest_payouts = names_sort.slice(0, 500)
 output.total_paid_out = total_paid_out
 
-console.dir(output, {depth: 3})
+console.dir(output, {depth: 3, maxArrayLength: 500})
